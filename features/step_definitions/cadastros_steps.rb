@@ -12,10 +12,15 @@ Dado('que acesso a página de cadastro') do
     find("input[name*=email]").set user[:email]
     find("input[placeholder='Sua senha secreta']").set user[:senha]
     find("input[placeholder='Confirme a senha']").set user[:confirmacao_senha]
+    
     click_on "Cadastrar"
   end
   
   Então('devo ser redirecionado para a área logada') do
-    find('.dashboard')
     expect(page).to have_css '.dashboard'
+  end
+  
+  Entao('devo ver a mensagem: {string}') do |expect_message|
+    alert = find(".message p")
+    expect(alert.text).to eql expect_message
   end
